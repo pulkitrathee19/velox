@@ -372,12 +372,14 @@ function showTestFeedback(message, isSuccess) {
 }
 
 function saveApiKey() {
-  const key = elements.apiKeyInput.value.trim();
+  const key = elements.apiKeyInput.value.trim().replace(/^["'`]|["'`]$/g, '').trim();
   state.apiKey = key;
   localStorage.setItem('groq_api_key', key);
   updateApiKeyStatus();
   closeApiKeyModal();
 }
+
+window.openApiKeyModal = openApiKeyModal;
 
 function clearChat() {
   if (state.isGenerating) stopGeneration();
@@ -550,7 +552,7 @@ async function executeGroqInference(assistantCardEl) {
     model: state.model,
     messages: messagesPayload,
     temperature: state.temperature,
-    max_completion_tokens: state.maxTokens,
+    max_tokens: state.maxTokens,
     top_p: state.topP,
     stream: state.stream
   };
@@ -705,11 +707,36 @@ async function executeGroqInference(assistantCardEl) {
       bodyEl.innerHTML = renderMarkdown(fullResponseText) + ' <em>(Transmission halted)</em>';
       footerEl.innerHTML = '<span style="color:var(--text-dim);">Halted by Operator</span>';
     } else {
-      bodyEl.innerHTML = `
-        <div style="color:#fb7185; background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.3); padding:0.85rem; border-radius:8px;">
-          <strong>Neural Gateway Error:</strong> ${err.message}
-        </div>
-      `;
+      const errMsg = err.message || '';
+      const isKeyError = errMsg.toLowerCase().includes('api key') || errMsg.includes('401') || errMsg.includes('invalid_api_key');
+      if (isKeyError) {
+        bodyEl.innerHTML = `
+          <div class="error-gateway-card">
+            <div class="error-header">
+              <i data-lucide="key-round" class="icon-sm"></i>
+              <span>Invalid Groq API Key</span>
+            </div>
+            <p>Your API key was not recognized or has expired. Make sure your key begins with <code>gsk_...</code> and contains no accidental quotes or spaces.</p>
+            <button class="btn-reconnect-key" onclick="window.openApiKeyModal()">
+              <i data-lucide="key" class="icon-xs"></i> Enter Valid API Key
+            </button>
+            <a href="https://console.groq.com/keys" target="_blank" rel="noopener" class="error-link">Create free key at console.groq.com/keys &rarr;</a>
+          </div>
+        `;
+      } else {
+        bodyEl.innerHTML = `
+          <div class="error-gateway-card">
+            <div class="error-header">
+              <i data-lucide="alert-triangle" class="icon-sm"></i>
+              <span>Neural Gateway Notice</span>
+            </div>
+            <p>${errMsg}</p>
+            <button class="btn-reconnect-key" onclick="window.openApiKeyModal()">
+              <i data-lucide="settings" class="icon-xs"></i> Check API Key
+            </button>
+          </div>
+        `;
+      }
       footerEl.innerHTML = '<span style="color:#fb7185;">Transmission Failed</span>';
     }
   } finally {

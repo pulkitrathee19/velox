@@ -1394,3 +1394,57 @@ input:checked + .neon-slider:before {
   .mode-chips { display: none; }
   .action-grid { grid-template-columns: 1fr; }
 }
+
+/* Enhanced Error Card */
+.error-gateway-card {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: #fb7185;
+}
+
+.error-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.error-gateway-card p {
+  font-size: 0.85rem;
+  color: #fecdd3;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.btn-reconnect-key {
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+  color: #06080d;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.error-link {
+  color: var(--neon-cyan);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.error-link:hover {
+  text-decoration: underline;
+}
