@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOX AI — Supersonic Neural Intelligence</title>
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Marked.js for Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Prism.js for code syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <div class="app-container">
+    <!-- Futuristic Glassmorphic Navigation -->
+    <header class="navbar">
+      <div class="nav-left">
+        <div class="brand-group">
+          <div class="brand-symbol">
+            <div class="symbol-core"></div>
+            <div class="symbol-ring"></div>
+          </div>
+          <div class="brand-text">
+            <span class="logo-title">VELOX<span class="logo-accent">.AI</span></span>
+            <span class="logo-subtitle">SUPERSONIC CORE</span>
+          </div>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <!-- Mode Selector Pills -->
+        <div class="mode-chips">
+          <button class="mode-pill active" data-mode="all-rounder" title="General conversational intelligence">
+            <i data-lucide="sparkles" class="icon-xs"></i>
+            <span>Omni</span>
+          </button>
+          <button class="mode-pill" data-mode="coder" title="Optimized for clean coding & architectures">
+            <i data-lucide="terminal" class="icon-xs"></i>
+            <span>Code Matrix</span>
+          </button>
+          <button class="mode-pill" data-mode="thinker" title="Deep reasoning, math & logic analysis">
+            <i data-lucide="brain-circuit" class="icon-xs"></i>
+            <span>Deep Logic</span>
+          </button>
+          <button class="mode-pill" data-mode="writer" title="Creative writing, essays & storytelling">
+            <i data-lucide="feather" class="icon-xs"></i>
+            <span>Creative</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <!-- Live Hyperspeed HUD Meter -->
+        <div class="hyperspeed-hud" id="liveSpeedPill" title="Live Neural Throughput">
+          <div class="hud-pulse"></div>
+          <span class="hud-label">THROUGHPUT</span>
+          <span class="hud-val" id="headerSpeedValue">0 T/s</span>
+        </div>
+
+        <button class="glass-btn" id="btnViewCode" title="Export session code">
+          <i data-lucide="code-2" class="icon-sm"></i>
+          <span>Export Code</span>
+        </button>
+
+        <button class="glass-btn" id="btnClearChat" title="Clear chat history">
+          <i data-lucide="trash-2" class="icon-sm"></i>
+          <span>Clear</span>
+        </button>
+
+        <button class="glass-btn api-btn" id="btnApiKey">
+          <i data-lucide="key" class="icon-sm"></i>
+          <span id="apiKeyBtnText">Connect Key</span>
+          <span class="key-status-indicator" id="apiKeyStatusDot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="main-layout">
+      <!-- Left Panel: Neural Controls Sidebar -->
+      <aside class="sidebar-panel" id="sidebarPanel">
+        <!-- Engine / Model Selection -->
+        <div class="sidebar-block">
+          <div class="block-title">
+            <span><i data-lucide="cpu" class="icon-xs"></i> Neural Engine</span>
+            <span class="badge-neon">LPU ACCELERATED</span>
+          </div>
+          <div class="custom-select-wrapper">
+            <select id="modelSelect" class="cyber-select">
+              <optgroup label="Titan Models (Meta Llama)">
+                <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B (Versatile Flagship)</option>
+                <option value="llama-3.1-8b-instant">Llama 3.1 8B (Mach Speed ~800 T/s)</option>
+                <option value="llama-3.2-3b-preview">Llama 3.2 3B (Compact Speed)</option>
+                <option value="llama-3.2-1b-preview">Llama 3.2 1B (Ultra Light)</option>
+              </optgroup>
+              <optgroup label="Deep Reasoning & MoE">
+                <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 Distill 70B (Reasoning)</option>
+                <option value="mixtral-8x7b-32768">Mixtral 8x7B (32K MoE)</option>
+              </optgroup>
+              <optgroup label="Google Intelligence">
+                <option value="gemma2-9b-it">Google Gemma 2 9B IT</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="engine-bio" id="modelDescription">
+            State-of-the-art 70B neural backbone with massive 128k context for versatile problem solving.
+          </div>
+        </div>
+
+        <!-- Custom Persona / System Instructions -->
+        <div class="sidebar-block">
+          <div class="block-title">
+            <span><i data-lucide="command" class="icon-xs"></i> Velox Persona</span>
+            <button class="link-action" id="btnResetSystemPrompt">Reset</button>
+          </div>
+          <textarea id="systemPrompt" rows="3" class="cyber-textarea" placeholder="Configure Velox's intelligence directive..."></textarea>
+        </div>
+
+        <!-- Parameters Tuning -->
+        <div class="sidebar-block parameters-block">
+          <div class="block-title">
+            <span><i data-lucide="sliders-horizontal" class="icon-xs"></i> Tuning Matrix</span>
+            <button class="link-action" id="btnResetParams">Default</button>
+          </div>
+
+          <!-- Temperature -->
+          <div class="matrix-slider">
+            <div class="slider-meta">
+              <span>Creativity (Temp)</span>
+              <span class="matrix-val" id="valTemperature">0.60</span>
+            </div>
+            <input type="range" id="paramTemperature" min="0" max="2" step="0.05" value="0.6">
+            <div class="slider-guidance">Low = precise & factual &bull; High = imaginative</div>
+          </div>
+
+          <!-- Max Tokens -->
+          <div class="matrix-slider">
+            <div class="slider-meta">
+              <span>Max Generation</span>
+              <span class="matrix-val" id="valMaxTokens">2048</span>
+            </div>
+            <input type="range" id="paramMaxTokens" min="64" max="8192" step="64" value="2048">
+            <div class="slider-guidance">Upper token boundary for output</div>
+          </div>
+
+          <!-- Top P -->
+          <div class="matrix-slider">
+            <div class="slider-meta">
+              <span>Nucleus (Top P)</span>
+              <span class="matrix-val" id="valTopP">1.00</span>
+            </div>
+            <input type="range" id="paramTopP" min="0.05" max="1" step="0.05" value="1.0">
+            <div class="slider-guidance">Diversity of token distribution</div>
+          </div>
+
+          <!-- Futuristic Switches -->
+          <div class="cyber-toggle">
+            <div>
+              <div class="toggle-name">Neural Streaming</div>
+              <div class="toggle-sub">Live token emission</div>
+            </div>
+            <label class="neon-switch">
+              <input type="checkbox" id="toggleStream" checked>
+              <span class="neon-slider"></span>
+            </label>
+          </div>
+
+          <div class="cyber-toggle">
+            <div>
+              <div class="toggle-name">Structured JSON</div>
+              <div class="toggle-sub">Force strict JSON response</div>
+            </div>
+            <label class="neon-switch">
+              <input type="checkbox" id="toggleJsonMode">
+              <span class="neon-slider"></span>
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Panel: Holographic Conversation Canvas -->
+      <section class="canvas-panel">
+        <!-- Telemetry HUD Bar -->
+        <div class="telemetry-hud" id="telemetryBar">
+          <div class="hud-item speed-hud">
+            <i data-lucide="zap" class="icon-hud"></i>
+            <span class="hud-tag">SPEED:</span>
+            <span class="hud-metric" id="statSpeed">0.0 T/s</span>
+          </div>
+          <div class="hud-item">
+            <i data-lucide="activity" class="icon-hud"></i>
+            <span class="hud-tag">TTFT:</span>
+            <span class="hud-metric" id="statTtft">0 ms</span>
+          </div>
+          <div class="hud-item">
+            <i data-lucide="timer" class="icon-hud"></i>
+            <span class="hud-tag">LATENCY:</span>
+            <span class="hud-metric" id="statLatency">0 ms</span>
+          </div>
+          <div class="hud-item">
+            <i data-lucide="binary" class="icon-hud"></i>
+            <span class="hud-tag">OUTPUT:</span>
+            <span class="hud-metric" id="statTokens">0 tokens</span>
+          </div>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div class="conversation-container" id="messagesContainer">
+          <!-- Creative Welcome Hero Screen -->
+          <div class="hero-stage" id="welcomeHero">
+            <div class="cyber-orb-wrapper">
+              <div class="cyber-orb"></div>
+              <div class="orb-scanline"></div>
+              <div class="orb-glow-pulse"></div>
+            </div>
+
+            <div class="hero-badge">
+              <i data-lucide="zap" class="icon-xs"></i>
+              <span>GROQ LPU™ HARDWARE ENGINE</span>
+            </div>
+
+            <h1 class="hero-title">Welcome to <span class="gradient-text">VELOX</span></h1>
+            <p class="hero-subtext">
+              Your next-generation autonomous AI companion. Formulate questions, synthesize code, and brainstorm at supersonic speed.
+            </p>
+
+            <div class="hero-key-banner" id="heroApiAlert">
+              <div class="key-banner-text">
+                <i data-lucide="shield-alert" class="icon-alert"></i>
+                <span>Attach your Groq API Key to awaken Velox's full neural capacity.</span>
+              </div>
+              <button class="btn-neon-action" id="btnHeroSetKey">Activate Velox</button>
+            </div>
+
+            <!-- Creative Action Prompt Cards -->
+            <div class="action-grid">
+              <div class="action-card" data-prompt="Analyze how Velox combines LPUs and neural models to produce ultra-low latency intelligence.">
+                <div class="card-icon-box gradient-cyan"><i data-lucide="cpu"></i></div>
+                <div class="card-info">
+                  <h4>How Velox Works</h4>
+                  <p>Discover the secrets of sub-second inference architecture.</p>
+                </div>
+              </div>
+
+              <div class="action-card" data-prompt="Write a production-ready async Python microservice using FastAPI and streaming websockets with type hints.">
+                <div class="card-icon-box gradient-purple"><i data-lucide="code"></i></div>
+                <div class="card-info">
+                  <h4>Code Architect</h4>
+                  <p>Generate a complete async FastAPI microservice.</p>
+                </div>
+              </div>
+
+              <div class="action-card" data-prompt="Compare DeepSeek R1 reasoning chain against traditional transformer attention step-by-step.">
+                <div class="card-icon-box gradient-emerald"><i data-lucide="brain"></i></div>
+                <div class="card-info">
+                  <h4>Deep Reasoning</h4>
+                  <p>Examine chain-of-thought vs standard attention.</p>
+                </div>
+              </div>
+
+              <div class="action-card" data-prompt="Write a captivating sci-fi teaser about an orbital colony encountering an ancient silicon monolith.">
+                <div class="card-icon-box gradient-amber"><i data-lucide="sparkles"></i></div>
+                <div class="card-info">
+                  <h4>Creative Vision</h4>
+                  <p>Draft a gripping cinematic sci-fi narrative.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Message History -->
+          <div id="messagesList" class="messages-stack"></div>
+        </div>
+
+        <!-- Cyberpunk Floating Input Bar -->
+        <div class="input-stage">
+          <form id="chatForm" class="interactive-form">
+            <div class="cyber-input-box">
+              <div class="input-inner">
+                <textarea 
+                  id="userInput" 
+                  rows="1" 
+                  placeholder="Initiate prompt with Velox... (Press Enter to transmit, Shift+Enter for newline)"
+                  autocomplete="off"
+                ></textarea>
+                <div class="action-dock">
+                  <div class="dock-left">
+                    <span class="dock-shortcut"><span>Enter</span> Transmit</span>
+                    <span class="dock-shortcut"><span>Shift+Enter</span> Linebreak</span>
+                  </div>
+                  <div class="dock-right">
+                    <button type="submit" id="btnSubmit" class="btn-transmit" title="Send message">
+                      <i data-lucide="arrow-up" id="sendIcon"></i>
+                    </button>
+                    <button type="button" id="btnStop" class="btn-abort hidden" title="Halt generation">
+                      <i data-lucide="square" class="icon-xs"></i>
+                      <span>HALT</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- API Key Activation Modal -->
+    <div class="modal-backdrop hidden" id="apiKeyModal">
+      <div class="cyber-modal">
+        <div class="modal-headline">
+          <div class="headline-brand">
+            <div class="brand-glyph"><i data-lucide="shield-check"></i></div>
+            <div>
+              <h3>Neural Key Activation</h3>
+              <p>Direct Groq Cloud API Gateway</p>
+            </div>
+          </div>
+          <button class="btn-close-modal" id="btnCloseApiKeyModal">&times;</button>
+        </div>
+
+        <div class="modal-content-area">
+          <p class="modal-instructions">
+            Your Groq API key is encrypted directly in your browser's local sandbox (<code>localStorage</code>) and dispatched solely to Groq's low-latency endpoints.
+          </p>
+
+          <div class="cyber-field">
+            <label for="apiKeyInput">Groq Secret Key (<code>gsk_...</code>):</label>
+            <div class="field-password">
+              <input type="password" id="apiKeyInput" placeholder="gsk_************************************" />
+              <button type="button" id="btnToggleKeyVisibility" class="btn-visibility" title="Toggle visibility">
+                <i data-lucide="eye" id="eyeIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="status-banner hidden" id="apiTestFeedback"></div>
+        </div>
+
+        <div class="modal-bottom-bar">
+          <button type="button" class="btn-glass-secondary" id="btnTestKey">
+            <span class="neon-spinner hidden" id="testSpinner"></span>
+            <span id="testKeyText">Ping Gateway</span>
+          </button>
+          <button type="button" class="btn-neon-action" id="btnSaveKey">Activate & Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Blueprint Export Modal -->
+    <div class="modal-backdrop hidden" id="viewCodeModal">
+      <div class="cyber-modal modal-wide">
+        <div class="modal-headline">
+          <div class="headline-brand">
+            <div class="brand-glyph"><i data-lucide="terminal"></i></div>
+            <div>
+              <h3>Execution Blueprint</h3>
+              <p>Integrate Velox into your codebase</p>
+            </div>
+          </div>
+          <button class="btn-close-modal" id="btnCloseViewCodeModal">&times;</button>
+        </div>
+
+        <div class="modal-content-area">
+          <div class="cyber-tabs">
+            <button class="cyber-tab active" data-lang="curl">cURL</button>
+            <button class="cyber-tab" data-lang="python">Python (Groq SDK)</button>
+            <button class="cyber-tab" data-lang="javascript">TypeScript / Node.js</button>
+          </div>
+          <div class="code-viewport">
+            <pre><code id="codeSnippetBox" class="language-bash"></code></pre>
+            <button class="btn-copy-blueprint" id="btnCopySnippet">
+              <i data-lucide="copy" class="icon-xs"></i>
+              <span id="copySnippetText">Copy Blueprint</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
